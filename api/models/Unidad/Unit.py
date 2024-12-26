@@ -1,5 +1,14 @@
-from pydantic import BaseModel
+class Unit:
+    def __init__(self, id: int, name: str):
+        self.id = id
+        self.name = name
 
-class Unit(BaseModel):
-    id: int
-    name: str
+    def to_json(self):
+        return {
+            'id': self.id,
+            'name': self.name
+        }
+
+    @staticmethod
+    def json_to_object(json: dict):
+        return Unit(json['id'], json['name'])

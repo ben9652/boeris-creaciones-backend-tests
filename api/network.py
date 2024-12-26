@@ -1,36 +1,36 @@
-import urllib3
-import json
+import requests
 from typing import List, Optional
+import urllib3
+
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 class NetworkController:
     def __init__(self, base_url: str):
         self.base_url = base_url
-        self.http = urllib3.PoolManager()
-    
+
     def request(self, method: str, endpoint: str, data: Optional[dict] = None) -> dict:
         url = f"{self.base_url}/{endpoint}"
-        encoded_data = json.dumps(data).encode('utf-8') if data else None
-        
-        # Crear un header en el que el tipo de contenido sea JSON si es que no es None el dato. Si el tipo de dato no es JSON, poner que es texto plano.
         headers = {'Content-Type': 'application/json'} if data else {'Content-Type': 'text/plain'}
 
-        try:
-            response = self.http.request(
-                method,
-                url,
-                headers,
-                body=encoded_data
-            )
-            
-            if response.status >= 400:
-                raise Exception(f"Error {response.status}: {response.data.decode()}")
-            
-            # Si el tipo de dato devuelto no es un JSON, devolver el texto plano.
-            if response.headers['Content-Type'] != 'application/json':
-                return response.data.decode()
-            return json.loads(response.data.decode())
-        except Exception as e:
-            raise Exception(f"Network error: {str(e)}")
+        # Cómo se hace una estructura 'switch'
+        response = None
+        if method == 'GET':
+            response = requests.get(url, headers=headers, verify=False)
+        elif method == 'POST':
+            response = requests.post(url, headers=headers, json=data, verify=False)
+        elif method == 'PUT':
+            response = requests.put(url, headers=headers, json=data, verify=False)
+        elif method == 'DELETE':
+            response = requests.delete(url, headers=headers, verify=False)
+        elif method == 'PATCH':
+            response = requests.patch(url, headers=headers, json=data, verify=False)
+        
+        if response.status_code >= 400:
+            raise Exception(f"Error {response.status_code}: {response.text}")
+
+        if 'application/json' not in response.headers.get('Content-Type', ''):
+            return response.text
+        return response.json()
 
     def get(self, endpoint: str) -> dict:
         return self.request('GET', endpoint)

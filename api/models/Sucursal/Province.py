@@ -1,5 +1,14 @@
-from pydantic import BaseModel
+class Province:
+    def __init__(self, id: int, name: str):
+        self.id = id
+        self
+    
+    def to_json(self):
+        return {
+            'id': self.id,
+            'name': self.name
+        }
 
-class Province(BaseModel):
-    id: int
-    name: str
+    @staticmethod
+    def json_to_object(json: dict):
+        return Province(json['id'], json['name'])

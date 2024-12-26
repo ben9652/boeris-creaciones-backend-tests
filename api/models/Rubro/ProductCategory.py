@@ -1,5 +1,17 @@
-from pydantic import BaseModel
+class ProductCategory:
+    def __init__(self, id: int, name: str):
+        self.id = id
+        self.name = name
+    
+    def to_json(self):
+        return {
+            'id': self.id,
+            'name': self.name
+        }
 
-class ProductCategory(BaseModel):
-    id: int
-    name: str
+    @staticmethod
+    def json_to_object(json: dict):
+        return ProductCategory(
+            json['id'],
+            json['name']
+        )
