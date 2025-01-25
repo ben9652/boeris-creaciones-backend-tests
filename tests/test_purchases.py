@@ -176,6 +176,7 @@ class TestPurchasesController(unittest.TestCase):
         controller = NetworkController('http://localhost:5141/api')
 
         for purchase in TestPurchasesController.purchases:
+            controller.post(f'Compras/dar-de-baja/{purchase}', {})
             controller.delete(f'Compras/{purchase}')
             print('Compra eliminada exitosamente')
         
