@@ -1,7 +1,6 @@
 from typing import List
 import random
 
-from api.models.Compras.Purchase import Purchase
 from api.models.Compras.NewPurchase import NewPurchase
 from api.models.Compras.RawMaterialPurchase import RawMaterialPurchase
 from api.models.Proveedor.Provider import Provider

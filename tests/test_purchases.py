@@ -8,7 +8,6 @@ from api.models.Compras.RawMaterialPurchase import RawMaterialPurchase
 from api.models.Proveedor.Provider import Provider
 from api.models.Usuarios.Partner import NewPartner, Partner
 from api.models.Usuarios.User import User
-from api.models.Compras.Purchase import Purchase
 from api.models.Compras.NewPurchase import NewPurchase
 
 import api.data.Purchases as PurchasesGenerator
@@ -146,7 +145,7 @@ class TestPurchasesController(unittest.TestCase):
                         selected_raw_materials.append(
                             RawMaterialPurchase(
                                 raw_material.id,
-                                raw_material.category.id,
+                                raw_material.category,
                                 raw_material.name,
                                 random.randint(1, 100),
                                 random.randint(1, 1000)
