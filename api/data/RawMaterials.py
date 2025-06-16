@@ -30,6 +30,7 @@ def generate_raw_materials(number: int, categories: list[RawMaterialCategory]) -
             random.choice(raw_materials_names),
             f"{random.choice(['C', 'E', 'P'])}",
             random.randint(0, 1000),
+            0,
             f"picture_{i}.jpg",
             f"Comment {i}" if random.random() > 0.5 else None,
         )

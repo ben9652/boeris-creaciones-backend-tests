@@ -35,3 +35,11 @@ def generate_purchases_descriptions():
 def generate_provider_names():
     with open("api/data/mock/provider_names.txt") as f:
         return f.read().split("\n")
+    
+def generate_localities():
+    with open("api/data/mock/localities.txt") as f:
+        return f.read().split("\n")
+
+def generate_cities():
+    with open("api/data/mock/cities.txt") as f:
+        return f.read().split("\n")

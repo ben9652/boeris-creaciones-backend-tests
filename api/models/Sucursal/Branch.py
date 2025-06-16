@@ -14,24 +14,11 @@ class Branch:
             "domicile": self.domicile,
             "locality": self.locality.to_json()
         }
-
-class BranchExtended:
-    def __init__(self, id: int, name: str, domicile: str):
-        self.id = id
-        self.name = name
-        self.domicile = domicile
     
-    def to_json(self):
-        return {
-            "id": self.id,
-            "name": self.name,
-            "domicile": self.domicile
-        }
-    
-    @staticmethod
     def json_to_object(json: dict):
-        return BranchExtended(
+        return Branch(
             json['id'],
             json['name'],
-            json['domicile']
+            json['domicile'],
+            Locality.json_to_object(json['locality'])
         )

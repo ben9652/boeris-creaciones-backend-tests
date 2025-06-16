@@ -6,7 +6,7 @@ from api.models.Rubro.RawMaterialCategory import RawMaterialCategory
 from api.models.MateriasPrimas.RawMaterial import RawMaterial
 from api.models.Compras.RawMaterialPurchase import RawMaterialPurchase
 from api.models.Proveedor.Provider import Provider
-from api.models.Usuarios.Partner import NewPartner, Partner
+from api.models.Usuarios.Partner import NewPartner
 from api.models.Usuarios.User import User
 from api.models.Compras.NewPurchase import NewPurchase
 

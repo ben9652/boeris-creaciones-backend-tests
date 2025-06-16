@@ -67,3 +67,26 @@ class Purchase:
         reception_branch = Branch.json_to_object(json['reception_branch']) if json['reception_branch'] else None
         invoice = json['invoice']
         return Purchase(id, requester_partner, provider, raw_materials, description, order_date, currency, payment_type, budget, reception_mode, state, reception_date, canceled_date, final_price, additional_amount_reason, reception_branch, invoice)
+
+class ReceivePurchase:
+    def __init__(self, id_branch_reception: int, additional_amount: float, additional_amound_reason: Optional[str] = None, invoice: Optional[str] = None):
+        self.id_branch_reception = id_branch_reception
+        self.additional_amount = additional_amount
+        self.additional_amound_reason = additional_amound_reason
+        self.invoice = invoice
+
+    def to_json(self):
+        return {
+            "id_branch_reception": self.id_branch_reception,
+            "additional_amount": self.additional_amount,
+            "additional_amound_reason": self.additional_amound_reason,
+            "invoice": self.invoice
+        }
+
+    @staticmethod
+    def json_to_object(json: dict):
+        id_branch_reception = json['id_branch_reception']
+        additional_amount = json['additional_amount']
+        additional_amound_reason = json['additional_amound_reason']
+        invoice = json['invoice']
+        return ReceivePurchase(id_branch_reception, additional_amount, additional_amound_reason, invoice)
